@@ -2,6 +2,11 @@
 requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["runtime*", "api*", "agent_client*"]
+exclude = ["tests*", "docker*", "portal*"]
+
 [project]
 name = "agentic-sandbox-secure-runtime"
 version = "0.1.0"

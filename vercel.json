@@ -1,14 +1,17 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "echo 'Static portal deployment ready'",
+  "outputDirectory": "portal",
   "cleanUrls": true,
+  "framework": null,
   "rewrites": [
     {
       "source": "/",
-      "destination": "/portal/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/(.*)",
-      "destination": "/portal/$1"
+      "destination": "/$1"
     }
   ],
   "headers": [
