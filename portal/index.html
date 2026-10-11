@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Agentic Sandbox Runtime | Secure MicroVM & Wasm Execution for AI Agents</title>
+  <meta name="title" content="Agentic Sandbox Runtime | Secure MicroVM & Wasm Execution for AI Agents">
+  <meta name="description" content="Sub-second hardened multi-tenant execution runtime for autonomous AI agents. Features WebAssembly isolation, strict Linux seccomp syscall filtering, egress network firewalls, and tamper-evident audit trails.">
+  <meta name="keywords" content="AI Sandbox, WebAssembly, Wasmtime, Docker Seccomp, AI Agents, Autonomous Agents, MicroVM, SSRF Defense, Egress Proxy, Cybersecurity">
+  <meta name="author" content="Agentic Sandbox Maintainers">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://agentic-sandbox-secure-runtime.vercel.app/">
+  <meta property="og:title" content="Secure MicroVM & Wasm Sandbox for Autonomous AI Agents">
+  <meta property="og:description" content="Hardened sub-second execution runtime for AI agents. Isolate untrusted code with WebAssembly, Linux Seccomp, and Egress Network Firewalls.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/ravishkarathnayaka/agentic-sandbox-secure-runtime/main/portal/favicon.svg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Secure MicroVM & Wasm Sandbox for Autonomous AI Agents">
+  <meta property="twitter:description" content="Hardened sub-second execution runtime for AI agents. Run untrusted code with $0 setup.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Cyber Background Grid -->
+  <div class="bg-grid"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="brand">
+        <img src="favicon.svg" alt="Shield Logo" class="brand-icon">
+        <span>Agentic Sandbox</span>
+        <span class="brand-badge">Two-Tier Runtime</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#playground" class="nav-link active">Playground</a></li>
+          <li><a href="#token-studio" class="nav-link">Capability Studio</a></li>
+          <li><a href="#firewall" class="nav-link">Egress Firewall</a></li>
+          <li><a href="#audit" class="nav-link">Audit Trail</a></li>
+          <li><a href="#matrix" class="nav-link">Architecture</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        <span>SANDBOX READY (SUB-SECOND)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="container">
+    <section class="hero">
+      <div class="hero-pill">
+        <span>✦</span> Hardened Multi-Tenant Execution for LLM Agents
+      </div>
+      <h1 class="hero-title">
+        Secure MicroVM &amp; WebAssembly<br>
+        <span class="gradient-text">Execution Sandbox for AI Agents</span>
+      </h1>
+      <p class="hero-subtitle">
+        Eliminate container breakouts, runaway compute loops, and cloud metadata SSRF theft.
+        Sub-millisecond Wasm execution combined with Linux seccomp containers for $0.
+      </p>
+
+      <!-- Stat Grid -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-header">Tier 1 Cold Start</div>
+          <div class="stat-value cyan">&lt; 4 ms</div>
+          <div class="stat-sub">Deterministic Wasm bytecode startup</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-header">Seccomp Filtered</div>
+          <div class="stat-value violet">35+ Syscalls</div>
+          <div class="stat-sub">Blocks ptrace, bpf, mount, reboot, keyctl</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-header">Egress Isolation</div>
+          <div class="stat-value emerald">100% Drops</div>
+          <div class="stat-sub">Blocks 169.254.169.254 &amp; RFC 1918</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-header">Tamper Detection</div>
+          <div class="stat-value amber">SHA-256</div>
+          <div class="stat-sub">Cryptographic hash-chained audit receipts</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Workspace Card with Tabs -->
+    <section class="portal-card" id="playground">
+      <div class="portal-card-header">
+        <div class="card-title-group">
+          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+          <div>
+            <h2 class="card-title">Sandbox Execution Playground</h2>
+            <p class="card-desc">Execute untrusted code tools with hardware-enforced limits and capability validation</p>
+          </div>
+        </div>
+
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="tab-playground">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            Playground
+          </button>
+          <button class="tab-btn" data-tab="tab-tokens" id="token-studio">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Capability Studio
+          </button>
+          <button class="tab-btn" data-tab="tab-firewall" id="firewall">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            Egress Firewall
+          </button>
+          <button class="tab-btn" data-tab="tab-audit" id="audit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Audit Trail
+          </button>
+          <button class="tab-btn" data-tab="tab-matrix" id="matrix">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            Architecture
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 1: PLAYGROUND -->
+      <div class="tab-content active" id="tab-playground">
+        <div class="playground-grid">
+          <!-- Editor Pane -->
+          <div class="editor-pane">
+            <div class="pane-header">
+              <span class="pane-label">
+                <span>Code Payload</span>
+                <span class="badge badge-info" id="backend-badge">WASM</span>
+              </span>
+              <select id="template-select" class="template-select">
+                <optgroup label="WebAssembly Sandbox (Tier 1: <5ms)">
+                  <option value="wasm_fact">Wasm: Factorial Calculation (WAT)</option>
+                  <option value="wasm_mem">Wasm: Memory Allocation Boundary</option>
+                  <option value="wasm_loop">Wasm: Fuel Kill Switch (Infinite Loop)</option>
+                </optgroup>
+                <optgroup label="Hardened Container Sandbox (Tier 2: Seccomp)">
+                  <option value="py_data">Python: Data Analytics &amp; File Diff</option>
+                  <option value="py_syscall">Python: Exploit Blocked Syscall (reboot)</option>
+                  <option value="py_net">Python: Approved Domain Web Scraper</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="code-editor-box">
+              <div class="editor-toolbar">
+                <span>payload.wat / script.py</span>
+                <span>ISO-8601 SANDBOX READY</span>
+              </div>
+              <textarea id="code-input" class="editor-textarea" spellcheck="false">(module
+  ;; Factorial calculation in WebAssembly
+  (func $fact (param $n i32) (result i32)
+    (local $res i32)
+    (local.set $res (i32.const 1))
+    (block $exit
+      (loop $loop
+        (br_if $exit (i32.le_s (local.get $n) (i32.const 1)))
+        (local.set $res (i32.mul (local.get $res) (local.get $n)))
+        (local.set $n (i32.sub (local.get $n) (i32.const 1)))
+        (br $loop)
+      )
+    )
+    (local.get $res)
+  )
+  (export "calculate" (func $fact))
+)</textarea>
+            </div>
+
+            <!-- Token Binding Input -->
+            <div class="form-group">
+              <label class="form-label" for="token-input">Active Capability Token (HMAC-SHA256)</label>
+              <input type="text" id="token-input" class="form-input" placeholder="Paste signed capability token..." readonly>
+            </div>
+
+            <div class="controls-row">
+              <button id="run-code-btn" class="btn btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                Execute Sandbox
+              </button>
+              <a href="#token-studio" class="btn btn-secondary">
+                Mint New Token
+              </a>
+            </div>
+          </div>
+
+          <!-- Receipt Output Terminal -->
+          <div class="terminal-pane">
+            <div class="terminal-box">
+              <div class="terminal-header">
+                <div class="terminal-dots">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">execution_receipt.json</div>
+                <span class="badge badge-success" id="status-badge">READY</span>
+              </div>
+
+              <div class="terminal-body">
+                <pre id="terminal-output">// Press "Execute Sandbox" to run isolated workload
+{
+  "status": "AWAITING_INPUT",
+  "engine": "wasmtime_v49_and_docker_seccomp",
+  "limits": {
+    "wasm_max_memory": "16MB",
+    "container_max_memory": "256MB",
+    "cpu_quota": "0.5 vCPU",
+    "network_mode": "egress_filtered"
+  }
+}</pre>
+              </div>
+
+              <div class="receipt-bar">
+                <span>Duration: <strong id="duration-chip" style="color:var(--accent-cyan);">-- ms</strong></span>
+                <span>•</span>
+                <span>Memory: <strong id="memory-chip" style="color:var(--accent-emerald);">-- KB</strong></span>
+                <span>•</span>
+                <span>Seccomp: <strong style="color:var(--text-main);">ENFORCED</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: CAPABILITY TOKEN STUDIO -->
+      <div class="tab-content" id="tab-tokens">
+        <h3 style="font-size: 1.1rem; margin-bottom: 6px;">Mint Scoped Capability Token</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+          Generate tamper-evident HMAC-SHA256 authorization tokens enforcing least-privilege access for AI Agents.
+        </p>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Agent Identifier</label>
+            <input type="text" id="token-agent-id" class="form-input" value="agent-alpha-001">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Token TTL (Seconds)</label>
+            <input type="number" id="token-ttl" class="form-input" value="300" min="10" max="3600">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Memory Ceiling (MB)</label>
+            <input type="number" id="token-mem" class="form-input" value="256" min="16" max="1024">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Execution Timeout Cap (Sec)</label>
+            <input type="number" id="token-timeout" class="form-input" value="5.0" step="0.5" min="0.5" max="30">
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label class="form-label">Granted Permissions (Least-Privilege)</label>
+          <div class="checkbox-group">
+            <label class="checkbox-pill"><input type="checkbox" class="perm-check" value="wasm:exec" checked> wasm:exec</label>
+            <label class="checkbox-pill"><input type="checkbox" class="perm-check" value="container:exec" checked> container:exec</label>
+            <label class="checkbox-pill"><input type="checkbox" class="perm-check" value="network:egress"> network:egress</label>
+            <label class="checkbox-pill"><input type="checkbox" class="perm-check" value="fs:read" checked> fs:read</label>
+            <label class="checkbox-pill"><input type="checkbox" class="perm-check" value="fs:write" checked> fs:write</label>
+            <label class="checkbox-pill"><input type="checkbox" class="perm-check" value="shell:exec"> shell:exec</label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 24px;">
+          <label class="form-label">Domain Allowlist (Comma separated)</label>
+          <input type="text" id="token-domains" class="form-input" value="api.github.com, httpbin.org, *.openai.com">
+        </div>
+
+        <div class="controls-row" style="margin-bottom: 24px;">
+          <button id="gen-token-btn" class="btn btn-primary">Mint Signed Token</button>
+          <button id="copy-token-btn" class="btn btn-secondary">Copy Token</button>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Cryptographic Token Output (Base64.Signature)</label>
+            <input type="text" id="generated-token-text" class="form-input" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Decoded Payload Inspection</label>
+            <pre id="token-decoded-json" style="background:var(--bg-input); padding:12px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle); font-family:var(--font-mono); font-size:0.75rem; color:#94a3b8; overflow:auto; max-height:160px;"></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: EGRESS FIREWALL TESTER -->
+      <div class="tab-content" id="tab-firewall">
+        <h3 style="font-size: 1.1rem; margin-bottom: 6px;">Egress Network Security &amp; Anti-SSRF Simulator</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+          Test outbound destinations against the Sandbox Egress Filter rules blocking Cloud Metadata services (IMDS), RFC 1918 private subnets, and unapproved domains.
+        </p>
+
+        <div class="firewall-tester">
+          <div class="input-with-btn">
+            <input type="text" id="firewall-test-url" class="form-input" value="http://169.254.169.254/latest/meta-data/" placeholder="Enter URL or IP address (e.g., http://169.254.169.254 or api.github.com)">
+            <button id="firewall-test-btn" class="btn btn-primary">Inspect Target</button>
+          </div>
+
+          <div class="quick-targets">
+            <span>Quick Test Attack Payloads:</span>
+            <span class="quick-chip" data-target="http://169.254.169.254/latest/meta-data/">AWS/GCP IMDS (169.254.169.254)</span>
+            <span class="quick-chip" data-target="http://10.0.0.1/admin">Internal 10.0.0.1</span>
+            <span class="quick-chip" data-target="http://192.168.1.1/setup">Internal 192.168.1.1</span>
+            <span class="quick-chip" data-target="http://127.0.0.1:8000">Loopback 127.0.0.1</span>
+            <span class="quick-chip" data-target="https://api.github.com/zen">Approved: api.github.com</span>
+            <span class="quick-chip" data-target="https://evil-exfil-server.com">Unapproved Domain</span>
+          </div>
+
+          <div id="firewall-result-alert" class="rule-alert blocked">
+            <span id="firewall-result-badge" class="badge badge-danger">BLOCKED</span>
+            <div id="firewall-result-text">
+              BLOCKED: Cloud Metadata Service IP (169.254.169.254) - SSRF Protection active
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: AUDIT TRAIL -->
+      <div class="tab-content" id="tab-audit">
+        <div class="pane-header" style="margin-bottom: 16px;">
+          <div>
+            <h3 style="font-size: 1.1rem; margin-bottom: 4px;">Tamper-Evident SHA-256 Audit Trail</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+              Immutable ledger of all code executions, resource footprints, and policy violations chained with SHA-256 digests.
+            </p>
+          </div>
+          <div class="controls-row">
+            <button id="verify-audit-btn" class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem;">
+              Verify Hash Chain
+            </button>
+            <button id="tamper-audit-btn" class="btn btn-danger" style="padding: 6px 14px; font-size: 0.8rem;">
+              Simulate Tampering
+            </button>
+          </div>
+        </div>
+
+        <div id="audit-verify-alert" class="rule-alert" style="display:none; margin-bottom: 16px;"></div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Event ID</th>
+                <th>Status</th>
+                <th>Action</th>
+                <th>Duration</th>
+                <th>Prev Hash</th>
+                <th>Record Hash (SHA-256)</th>
+              </tr>
+            </thead>
+            <tbody id="audit-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 5: ARCHITECTURE MATRIX -->
+      <div class="tab-content" id="tab-matrix">
+        <h3 style="font-size: 1.1rem; margin-bottom: 6px;">Defense-in-Depth Comparison Matrix</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+          Comparing standard Docker containers vs. microVM hypervisors vs. our two-tier isolation architecture.
+        </p>
+
+        <div class="matrix-grid">
+          <div class="matrix-card">
+            <h4 class="matrix-title">Standard Docker</h4>
+            <span class="badge badge-danger">High Exploit Surface</span>
+            <ul class="matrix-points">
+              <li>❌ Cold start: 800ms – 2500ms</li>
+              <li>❌ Full host kernel syscalls exposed</li>
+              <li>❌ Vulnerable to AWS/GCP IMDS SSRF</li>
+              <li>❌ Ephemeral logs lost without audit</li>
+            </ul>
+          </div>
+
+          <div class="matrix-card">
+            <h4 class="matrix-title">MicroVM (gVisor)</h4>
+            <span class="badge badge-warning">High RAM Footprint</span>
+            <ul class="matrix-points">
+              <li>⏳ Cold start: 150ms – 300ms</li>
+              <li>✅ Kernel syscall emulation</li>
+              <li>⚠️ 30MB+ RAM overhead per agent</li>
+              <li>⚠️ Requires specialized KVM host</li>
+            </ul>
+          </div>
+
+          <div class="matrix-card featured">
+            <h4 class="matrix-title">Our Two-Tier Runtime</h4>
+            <span class="badge badge-success">Optimized for AI Agents</span>
+            <ul class="matrix-points">
+              <li>⚡ <strong>&lt; 4ms Wasm cold start</strong></li>
+              <li>🛡️ <strong>Linux Seccomp blocks 35+ syscalls</strong></li>
+              <li>🌐 <strong>Egress proxy blocks 169.254.169.254</strong></li>
+              <li>🔒 <strong>SHA-256 tamper-evident hash chaining</strong></li>
+              <li>💰 <strong>Runs locally for $0 (Zero Cloud Fees)</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Secure MicroVM &amp; WebAssembly Execution Sandbox for Autonomous AI Agents</p>
+      <p style="margin-top: 8px;">
+        Open Source under the <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT License</a> •
+        <a href="https://github.com/ravishkarathnayaka/agentic-sandbox-secure-runtime" target="_blank" rel="noopener">GitHub Repository</a> •
+        Production-Grade Two-Tier Sandboxing
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
