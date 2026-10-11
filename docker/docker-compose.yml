@@ -1,0 +1,84 @@
+services:
+  # Pre-build the hardened sandbox worker base image
+  sandbox-worker-image:
+    build:
+      context: ..
+      dockerfile: docker/sandbox.Dockerfile
+    image: sandbox-runner:latest
+    restart: "no"
+    command: ["python3", "-c", "print('Worker base image ready')"]
+
+  # Egress Filtering Proxy blocking metadata and private RFC 1918 subnets
+  egress-proxy:
+    build:
+      context: ..
+      dockerfile: docker/gateway.Dockerfile
+    image: sandbox-gateway:latest
+    container_name: sandbox-egress-proxy
+    command: ["python", "-m", "runtime.security.egress_firewall"]
+    ports:
+      - "8080:8080"
+    environment:
+      - EGRESS_PROXY_HOST=0.0.0.0
+      - EGRESS_PROXY_PORT=8080
+      - PYTHONUNBUFFERED=1
+    networks:
+      - sandbox-net
+    restart: unless-stopped
+
+  # Redis state coordinator and rate limiter
+  redis:
+    image: redis:7-alpine
+    container_name: sandbox-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - sandbox-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  # Sandbox Gateway REST API for Autonomous Agents
+  sandbox-gateway:
+    build:
+      context: ..
+      dockerfile: docker/gateway.Dockerfile
+    image: sandbox-gateway:latest
+    container_name: sandbox-gateway-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../runtime/security/seccomp_profile.json:/app/runtime/security/seccomp_profile.json:ro
+      - sandbox-workspaces:/app/.sandboxes
+    environment:
+      - ENVIRONMENT=production
+      - SECRET_KEY=sandbox-production-hmac-key-min-32-chars-length
+      - MAX_MEMORY_MB=256
+      - CPU_QUOTA_VCPU=0.5
+      - DEFAULT_TIMEOUT_SECONDS=5.0
+      - EGRESS_PROXY_HOST=egress-proxy
+      - EGRESS_PROXY_PORT=8080
+      - REDIS_URL=redis://redis:6379/0
+      - CONTAINER_IMAGE=sandbox-runner:latest
+    depends_on:
+      redis:
+        condition: service_healthy
+      egress-proxy:
+        condition: service_started
+    networks:
+      - sandbox-net
+    restart: unless-stopped
+
+networks:
+  sandbox-net:
+    driver: bridge
+
+volumes:
+  redis-data:
+  sandbox-workspaces:
